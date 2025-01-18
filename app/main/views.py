@@ -4,19 +4,39 @@ from ..models import User, Role
 from . import main
 from .forms import CadastrarProfessor
 from datetime import datetime
+from functools import wraps
+
 
 # Rota Principal
 @main.route('/')
 def index():
     return render_template('index.html', current_time=datetime.utcnow())
 
-# Rota Principal
+def rota_indisponivel(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        return render_template('nao_disponivel.html', current_time=datetime.utcnow())
+    return decorated_function
+
 @main.route('/disciplinas')
+@rota_indisponivel
+def disciplinas():
+    pass
+
 @main.route('/alunos')
+@rota_indisponivel
+def alunos():
+    pass
+
 @main.route('/cursos')
+@rota_indisponivel
+def cursos():
+    pass
+
 @main.route('/ocorrencias')
-def rotas_indisponiveis():
-    return render_template('nao_disponivel.html',  current_time=datetime.utcnow())
+@rota_indisponivel
+def ocorrencias():
+    pass
 
 @main.route('/professores', methods=['GET', 'POST'])
 def cadastrar_professores():

@@ -16,7 +16,7 @@ class CadastrarProfessor(FlaskForm):
                             DataRequired(message="O campo de nome é obrigatório."),
                             Length(1, 64),
                             Regexp(
-                                '^[a-zA-Z][a-zA-Z0-9_.]*$', 0,
+                                '^[a-zA-Z][a-zA-Z0-9_. ]*$', 0,
                                 message='O nome de usuário deve ter apenas letras, números, pontos ou sublinhados'
                             ),
                             UniqueName(message="Este professor já está registrado.")
